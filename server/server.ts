@@ -4,7 +4,8 @@ import cors from "cors";
 import connectDB from "./config/db.js";
 import dns from 'node:dns';
 import authRouter from "./routes/authRoutes.js";
-import restaurantRouter from "./routes/restaurantroutes.js";
+import restaurantRouter from "./routes/restaurantRoutes.js";
+import bookingRouter from "./routes/bookingRoutes.js";
 
 dns.setDefaultResultOrder('ipv4first');
 dns.setServers(['8.8.8.8','8.8.4.4']);
@@ -26,6 +27,7 @@ app.get('/', (req: Request, res: Response) => {
 
 app.use("/api/auth",authRouter)
 app.use("/api/restaurants",restaurantRouter);
+app.use("/api/bookings",bookingRouter);
 
 //global error handler 
 
