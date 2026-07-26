@@ -3,6 +3,8 @@ import { ShieldAlert } from "lucide-react";
 import AuthModal from "./AuthModal.tsx";
 import Loader from "./Loader.tsx";
 
+
+
 interface ProtectedRouteProps {
     children: React.ReactNode;
     allowedRoles?: ("user" | "admin" | "owner")[];

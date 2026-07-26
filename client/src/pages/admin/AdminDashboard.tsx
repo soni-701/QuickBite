@@ -9,7 +9,8 @@ import { ShieldCheckIcon, CheckCircleIcon, BarChart3Icon } from "lucide-react";
 // Subcomponents
 import AdminApprovals from "../../components/admin/AdminApprovals.tsx";
 import AdminStats from "../../components/admin/AdminStats.tsx";
-import { dummyAdminStats, dummyRestaurant } from "../../assets/assets.ts";
+import api from "../../lib/api.ts";
+import toast from "react-hot-toast";
 
 export default function AdminDashboard() {
     const { logout } = useAppContext();
@@ -20,16 +21,62 @@ export default function AdminDashboard() {
     const [btnLoading, setBtnLoading] = useState<string | null>(null);
 
     const fetchAdminData = async () => {
-        setRestaurants(dummyRestaurant);
-        setStats(dummyAdminStats);
+    try {
+        setLoading(true);
+
+        const [restaurantsRes, statsRes] = await Promise.all([
+            api.get("/admin/restaurants"),
+            api.get("/admin/stats")
+        ]);
+
+        setRestaurants(restaurantsRes.data);
+        setStats(statsRes.data);
+
+    } catch (error: any) {
+        toast.error(
+            error?.response?.data?.message ||
+            "Failed to load admin data"
+        );
+    } finally {
         setLoading(false);
-    };
+    }
+};
 
-    const handleApproveStatus = async (restaurantId: string, status: "approved" | "rejected") => {
-        console.log(restaurantId, status);
+   const handleApproveStatus = async (
+    restaurantId: string,
+    status: "approved" | "rejected"
+) => {
+    try {
+        setBtnLoading(restaurantId);
+
+        const res = await api.put(
+            `/admin/restaurants/${restaurantId}/approve`,
+            { status }
+        );
+
+        setRestaurants((prev) =>
+            prev.map((restaurant) =>
+                restaurant._id === restaurantId
+                    ? res.data
+                    : restaurant
+            )
+        );
+
+        toast.success(
+            status === "approved"
+                ? "Restaurant approved successfully"
+                : "Restaurant rejected"
+        );
+
+    } catch (error: any) {
+        toast.error(
+            error?.response?.data?.message ||
+            "Failed to update restaurant"
+        );
+    } finally {
         setBtnLoading(null);
-    };
-
+    }
+};
     useEffect(() => {
         (async () => await fetchAdminData())();
     }, []);

@@ -14,11 +14,11 @@ export const getRestaurants = async (req: Request, res: Response): Promise<void>
         const queryObj: any = { status: "approved" };
         if (search) {
             queryObj.$or = [
-                { name: { rgex: search, $options: "i" } },
-                { tags: { rgex: search, $options: "i" } },
-                { location: { rgex: search, $options: "i" } }
-            ]
-        }
+        { name: { $regex: search as string, $options: "i" } },
+        { tags: { $regex: search as string, $options: "i" } },
+        { location: { $regex: search as string, $options: "i" } }
+    ];
+}
 
         if (priceRange) {
             const prices = Array.isArray(priceRange) ? priceRange : [priceRange];
