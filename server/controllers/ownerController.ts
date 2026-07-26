@@ -1,24 +1,45 @@
 import { AuthRequest } from "../middlewares/auth.js";
-import { response, Response } from "express";
+import {  Response } from "express";
 import { Restaurant } from "../models/Restaurant.js";
 import { resolve } from "node:dns";
-import {v2 as cloudinary} from 'cloudinary';
+import cloudinary from "../config/cloudinary.js";
 import { Booking } from "../models/Booking.js";
 // import { stat } from "node:fs";
 //Helper function to upload buffer to cloudinary
 
-const uploadCloudinary=(fileBuffer:Buffer) : Promise<{secure_url :string}> =>{
-return new Promise ((resolve,reject)=>{
-    const stream =cloudinary.uploader.upload_stream({
-        folder:"QuickBite"
-    },(error,result)=>{
-        if(error) return reject(error);
-        if(!result) return reject(new Error("Upload Failed"));
-        resolve({secure_url:result.secure_url})
-    })
-    stream.end(fileBuffer)
-})
-}
+const uploadCloudinary = (
+    fileBuffer: Buffer
+): Promise<{ secure_url: string }> => {
+
+    return new Promise((resolve, reject) => {
+
+        const stream = cloudinary.uploader.upload_stream(
+            {
+                folder: "QuickBite",
+                resource_type: "image",
+            },
+            (error, result) => {
+
+                if (error) {
+                    console.log("FULL CLOUDINARY ERROR:", error);
+                    return reject(error);
+                }
+
+                if (!result) {
+                    return reject(new Error("Upload Failed"));
+                }
+
+                console.log("UPLOAD SUCCESS:", result.secure_url);
+
+                resolve({
+                    secure_url: result.secure_url
+                });
+            }
+        );
+
+        stream.end(fileBuffer);
+    });
+};
 
 
 //get owner's restaurant
@@ -51,7 +72,7 @@ export const createOwnerRestaurant=async(req:AuthRequest,res:Response):Promise<v
 
         const existing=await Restaurant.findOne({owner:req.user?._id})
 
-        if(!existing){
+        if(existing){
             res.status(200).json({message:"You already have a resturant registered"});
             return;
         }
@@ -80,10 +101,18 @@ export const createOwnerRestaurant=async(req:AuthRequest,res:Response):Promise<v
         let imageurl="";
         if(req.file){
             //handle image upload
+            console.log("IMAGE RECEIVED:", req.file.originalname);
+
             const result=await uploadCloudinary(req.file.buffer);
+
+            console.log("CLOUDINARY URL:", result.secure_url);
+
             imageurl=result.secure_url;
         }
-
+        
+        else {
+        console.log("NO IMAGE RECEIVED");
+        }
         //setup parsed tags and slot
 
         const parsedTags=typeof tags === "string" ? tags.split (",").map((t)=>t.trim()) :tags || [];
@@ -106,10 +135,10 @@ export const createOwnerRestaurant=async(req:AuthRequest,res:Response):Promise<v
             status:"pending"
         })
 
-        response.status(201).json(restaurant);
+        res.status(201).json(restaurant);
     } catch (error:any) {
-        console.error(error)
-        res.status(404).json({message:error.message})
+       console.error("CREATE RESTAURANT ERROR:", error);
+        res.status(500).json({message:error.message})
     }
 }
 

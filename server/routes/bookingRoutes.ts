@@ -6,8 +6,8 @@ import { CancelBooking, createBooking, getMyBookings } from "../controllers/book
 const bookingRouter=Router();
 
 
-bookingRouter.get("/",protect,createBooking);
+bookingRouter.post("/",protect,createBooking);
 bookingRouter.get("/my",protect,getMyBookings);
-bookingRouter.get("/:id/cancel",protect,CancelBooking);
+bookingRouter.patch("/:id/cancel",protect,CancelBooking);
 
 export default bookingRouter;

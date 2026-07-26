@@ -10,7 +10,8 @@ import PendingApproval from "../../components/owner/PendingApproval.tsx";
 import RequestRejected from "../../components/owner/RequestRejected.tsx";
 import OwnerBookings from "../../components/owner/OwnerBookings.tsx";
 import OwnerProfileDetails from "../../components/owner/OwnerProfileDetails.tsx";
-import { dummyMyBookingsData, dummyRestaurant } from "../../assets/assets.ts";
+import api from "../../lib/api.ts";
+import toast from "react-hot-toast";
 
 export default function OwnerDashboard() {
     const { logout } = useAppContext();
@@ -20,9 +21,25 @@ export default function OwnerDashboard() {
     const [activeTab, setActiveTab] = useState<"bookings" | "details">("bookings");
 
     const fetchOwnerData = async () => {
-        setRestaurant(dummyRestaurant[0]);
-        setBookings(dummyMyBookingsData);
-        setLoading(false);
+        try {
+            setLoading(true);
+            const res=await api.get("/owner/restaurant")
+            setRestaurant(res.data)
+
+            if(res.data){
+                if(res.data.status==="approved"){
+                    //Fetch bookings
+                    const bookingsRes=await api.get("/owner/bookings");
+                    setBookings(bookingsRes.data);
+                }
+            }
+
+        } catch (error:any) {
+            toast.error(error?.response?.data?.message || "Failed to load dashboard data")
+        }
+        finally{
+            setLoading(false)
+        }
     };
 
     useEffect(() => {
@@ -68,7 +85,7 @@ export default function OwnerDashboard() {
                         <aside className="lg:col-span-3 space-y-6 bg-white border border-outline-variant/20 p-6 rounded-md shadow-sm h-fit">
                             <div className="flex items-center gap-3.5 border-b border-outline-variant/10 pb-5">
                                 <span className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary font-medium text-base">
-                                    {restaurant.name.charAt(0)}
+                                    {restaurant?.name?.charAt(0)||"U"}
                                 </span>
                                 <div>
                                     <h4 className="font-display font-medium text-primary text-base line-clamp-1">{restaurant.name}</h4>

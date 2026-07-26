@@ -11,7 +11,7 @@ export const createBooking=async(req:AuthRequest,res:Response):Promise<void> =>{
         const {restaurantId,date,time,guests,occasion,specialRequests}=req.body;
 
         if(!restaurantId || !date || !time || !guests){
-            res.status(404).json({message:"Please provide all required reservation details"});
+            res.status(400).json({message:"Please provide all required reservation details"});
             return ;
         }
 
@@ -53,6 +53,7 @@ export const createBooking=async(req:AuthRequest,res:Response):Promise<void> =>{
                message: `Unable to reserve. Only ${availableSeats} seats are available for this time slots.` ,
 
             })
+            return;
         }
 
 

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useAppContext } from "../context/AppContext.tsx";
 import { X, Mail, Lock, User, Phone } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function AuthModal() {
     const { isAuthModalOpen, setAuthModalOpen, login, register } = useAppContext();
+    const navigate=useNavigate();
     const [isLoginTab, setIsLoginTab] = useState<boolean>(true);
 
     // Form states
@@ -31,22 +33,42 @@ export default function AuthModal() {
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setFormLoading(true);
+    e.preventDefault();
+    setFormLoading(true);
 
-        let success: boolean;
-
-        if (isLoginTab) {
-            success = await login(email, password);
-        } else {
-            success = await register(name, email, password, phone, isOwner ? "owner" : "user");
-        }
+    if (isLoginTab) {
+        const role = await login(email, password);
 
         setFormLoading(false);
+
+        if (role) {
+            handleClose();
+
+            if (role === "admin") {
+                navigate("/admin/dashboard");
+            } else if (role === "owner") {
+                navigate("/owner/dashboard");
+            } else {
+                navigate("/");
+            }
+        }
+
+    } else {
+        const success = await register(
+            name,
+            email,
+            password,
+            phone,
+            isOwner ? "owner" : "user"
+        );
+
+        setFormLoading(false);
+
         if (success) {
             handleClose();
         }
-    };
+    }
+};
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">

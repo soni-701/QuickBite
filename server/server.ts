@@ -21,7 +21,7 @@ await connectDB()
 app.use(cors())
 app.use(express.json());
 //port
-const port = process.env.PORT || 6000;
+const port = process.env.PORT || 5000;
 
 app.get('/', (req: Request, res: Response) => {
     res.send('Server is Live!');
@@ -30,8 +30,8 @@ app.get('/', (req: Request, res: Response) => {
 app.use("/api/auth",authRouter)
 app.use("/api/restaurants",restaurantRouter);
 app.use("/api/bookings",bookingRouter);
-app.use("/api/owner",ownerRouter);
-app.use("/api/admin",adminRouter);
+await app.use("/api/owner",ownerRouter);
+await app.use("/api/admin",adminRouter);
 
 //global error handler 
 
