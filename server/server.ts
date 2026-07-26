@@ -30,8 +30,8 @@ app.get('/', (req: Request, res: Response) => {
 app.use("/api/auth",authRouter)
 app.use("/api/restaurants",restaurantRouter);
 app.use("/api/bookings",bookingRouter);
-await app.use("/api/owner",ownerRouter);
-await app.use("/api/admin",adminRouter);
+ app.use("/api/owner",ownerRouter);
+ app.use("/api/admin",adminRouter);
 
 //global error handler 
 
