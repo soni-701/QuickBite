@@ -51,7 +51,7 @@ export default function Footer() {
 
             {/* Bottom Bar */}
             <div className="max-w-7xl mx-auto px-6 md:px-10 mt-16 pt-8 border-t border-outline-variant/10 flex flex-col md:flex-row justify-between items-center gap-4">
-                <p className="text-xs text-black/55">© 2026 QuickDine. All rights reserved.</p>
+                <p className="text-xs text-black/55">© 2026 QuickBite. All rights reserved.</p>
 
                 <div className="flex gap-6">
                     {bottomLinks.map((link) => (
