@@ -15,7 +15,11 @@ dns.setServers(['8.8.8.8','8.8.4.4']);
 const app = express();
 
 //connect Mongodb
-await connectDB()
+// await connectDB()
+connectDB().catch((err) => {
+    console.error("MongoDB connection error:", err);
+});
+
 
 // Middleware
 app.use(cors())
