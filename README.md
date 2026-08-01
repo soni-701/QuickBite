@@ -1,77 +1,186 @@
-# QuickBite Frontend
+<div align="center">
 
-Welcome to the frontend repository for **QuickBite** – a modern, premium table booking and reservation platform designed for a seamless dining experience.
+# 🍽️ QuickBite
 
-This application is built using **React 19**, **Vite**, **TypeScript**, and **Tailwind CSS v4**.
+### Premium Restaurant Booking & Reservation Platform
 
-## ✨ Features
+A full-stack restaurant booking platform where users can discover restaurants, reserve tables, and manage bookings with ease.
 
-- **Discerning Curation**: Clean, premium, and responsive search & filter options to browse dining venues by location, cuisine, price range, and rating.
-- **Seat Availability System**: Live check of table slots and seat capacity for a chosen reservation date.
-- **Seamless Booking Flow**: Reservation request with occasion selection and special dining requests.
-- **Role-Based Portals**:
-  - **Diners**: Book tables, track active reservations, and cancel requests.
-  - **Restaurant Owners**: Register a venue, manage profile information, and confirm/cancel incoming reservations.
-  - **Administrators**: Approve new restaurant registrations and monitor system-wide metrics.
+🌐 **Live Demo:** https://quick-bite-client-roan.vercel.app
 
-## 🛠️ Tech Stack
+💻 **GitHub Repository:** https://github.com/soni-701/QuickBite
 
-- **Framework**: React 19 (Vite)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS v4
-- **Routing**: React Router v7
-- **Icons**: Lucide React
-- **Notifications**: React Hot Toast
+</div>
 
-## 🚀 Getting Started
+---
 
-### Prerequisites
+## 📖 About
 
-Ensure you have **Node.js** (v18 or higher) and **npm** installed.
+QuickBite is a modern restaurant reservation platform that allows customers to search restaurants, check table availability, and reserve tables online. Restaurant owners can manage their restaurants and reservations through a dedicated dashboard, while administrators oversee the entire system.
 
-### Installation
+---
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/quickbite-frontend.git
-   cd quickbite-frontend
-   ```
+# ✨ Features
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+### 👤 User Features
+- 🔐 Secure Authentication
+- 🔍 Search Restaurants
+- 🏷️ Filter by Cuisine, Price & Rating
+- 📅 Book Tables
+- 📋 View Reservation History
+- ❌ Cancel Reservations
 
-3. Set up environment variables:
-   Create a `.env` file in the root directory:
-   ```env
-   VITE_API_URL=http://localhost:5000/api
-   ```
+### 🏪 Restaurant Owner
+- 📝 Register Restaurant
+- ✏️ Edit Restaurant Details
+- 📆 Manage Reservations
+- ✅ Accept/Reject Bookings
 
-### Development Server
+### 👨‍💼 Admin
+- ✅ Approve Restaurants
+- 📊 Dashboard Analytics
+- 👥 Manage Users
 
-Run the development server locally:
+---
+
+# 📸 Screenshots
+
+## 🏠 Home Page
+
+![Home] (Screenshot%202026-08-01%20215757.png)
+
+---
+
+## 🔍 Restaurant Search
+
+![Search](Screenshot%202026-08-01%20215818.png)
+
+---
+
+## 📅 Booking Page
+
+![Booking](Screenshot%202026-08-01%20220525.png))
+
+---
+
+# 🛠️ Tech Stack
+
+| Category | Technologies |
+|----------|--------------|
+| Frontend | React 19, Vite, TypeScript |
+| Styling | Tailwind CSS v4 |
+| Backend | Node.js, Express.js |
+| Database | MongoDB Atlas |
+| Authentication | JWT |
+| Deployment | Vercel |
+
+---
+
+# 📂 Folder Structure
+
+```text
+QuickBite
+│
+├── client
+│   ├── src
+│   ├── public
+│   └── package.json
+│
+├── server
+│   ├── controllers
+│   ├── models
+│   ├── routes
+│   ├── middleware
+│   └── package.json
+│
+├── screenshots
+│   ├── home.png
+│   ├── search.png
+│   ├── booking.png
+│   └── dashboard.png
+│
+└── README.md
+```
+
+---
+
+# 🚀 Installation
+
+### Clone Repository
+
 ```bash
+git clone https://github.com/soni-701/QuickBite.git
+```
+
+```bash
+cd QuickBite
+```
+
+### Install Dependencies
+
+Frontend
+
+```bash
+cd client
+npm install
 npm run dev
 ```
-Open `http://localhost:5173` in your browser.
 
-### Building for Production
+Backend
 
-Compile typescript and build the production bundle:
 ```bash
-npm run build
+cd server
+npm install
+npm start
 ```
 
-Preview the production build locally:
-```bash
-npm run preview
-```
+---
 
-## 🤝 Contributing
+# 🌐 Live Demo
 
-We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines on how to get started.
+👉 https://quick-bite-client-roan.vercel.app
 
-## 📄 License
+---
 
-Distributed under the MIT License. See [LICENSE.md](./LICENSE.md) for more details.
+# 📌 Future Improvements
+
+- 💳 Online Payment Integration
+- ⭐ Restaurant Reviews & Ratings
+- 📧 Email Notifications
+- 🗺️ Google Maps Integration
+- 🌙 Dark Mode
+- 📱 Progressive Web App (PWA)
+
+---
+
+# 🤝 Contributing
+
+Contributions are welcome!
+
+1. Fork the repository
+2. Create a new branch
+3. Commit your changes
+4. Push the branch
+5. Create a Pull Request
+
+---
+
+# 👨‍💻 Author
+
+### Soni Yadav
+
+🎓 B.Tech Information Technology Student
+
+🔗 GitHub: https://github.com/soni-701
+
+🔗 LinkedIn:https://www.linkedin.com/in/soni-yadav-9a7557339
+
+---
+
+<div align="center">
+
+### ⭐ If you like this project, please give it a Star!
+
+Made with ❤️ by **Soni Yadav**
+
+</div>
