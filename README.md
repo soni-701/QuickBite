@@ -47,13 +47,13 @@ QuickBite is a modern restaurant reservation platform that allows customers to s
 
 ## 🏠 Home Page
 
-![Home] (Screenshot%202026-08-01%20215757.png)
+![Home](Screenshot%202026-08-01%20215835.png)
 
 ---
 
 ## 🔍 Restaurant Search
 
-![Search](Screenshot%202026-08-01%20215818.png)
+![Search](Screenshot%202026-08-01%20221638.png)
 
 ---
 
